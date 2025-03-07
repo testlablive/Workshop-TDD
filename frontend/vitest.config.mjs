@@ -3,7 +3,7 @@ import { defineConfig } from "vitest/dist/config";
 
 export default defineConfig({
   test: {
-    include: ["src/tests/{component,unit}/**/*.{test,spec}.?(c|m)[jt]s?(x)'"],
+    include: ["**/*.{test,spec}.?(c|m)[jt]s?(x)"],
     global: true,
     environment: "happy-dom",
     cache: false,

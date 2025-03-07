@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
-import { SessionStore, StoreState } from "../src/context/SessionStore";
-import * as api from "../src/api/apiClient";
+import { SessionStore, StoreState } from "../context/SessionStore";
+import * as api from "../api/apiClient";
 
 vi.mock("../api/apiClient");
 

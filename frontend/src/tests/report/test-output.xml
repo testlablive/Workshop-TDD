@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="2" failures="0" errors="0" time="0.004498">
+    <testsuite name="src/tests/SessionStore.spec.ts" timestamp="2025-03-07T13:51:36.285Z" hostname="OKC71781" tests="2" failures="0" errors="0" skipped="0" time="0.004498">
+        <testcase classname="src/tests/SessionStore.spec.ts" name="SessionStore &gt; createSession &gt; should create a session successfully" time="0.0021171">
+        </testcase>
+        <testcase classname="src/tests/SessionStore.spec.ts" name="SessionStore &gt; createSession &gt; should handle errors when creating a session" time="0.0016554">
+            <system-err>
+Error creating session: Failed to create session
+
+            </system-err>
+        </testcase>
+    </testsuite>
+</testsuites>
