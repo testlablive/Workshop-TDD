@@ -103,7 +103,7 @@ export class SessionStore {
     }
   }
 
-  async startVoiting(storyId: string): Promise<void> {
+  async startVoting(storyId: string): Promise<void> {
     try {
       this.state = StoreState.PENDING;
       await api.updateStory(this.store!.id, storyId, { status: "active" });
