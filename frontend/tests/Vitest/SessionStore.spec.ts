@@ -1,13 +1,22 @@
-import { describe, it, expect, vi } from "vitest";
-import { SessionStore, StoreState } from "../context/SessionStore";
-import * as api from "../api/apiClient";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { SessionStore, StoreState } from "../../src/store/SessionStore";
+import * as api from "../../src/api/apiClient";
+import { Session } from "../../src/types";
 
 vi.mock("../api/apiClient");
 
 describe("SessionStore", () => {
   describe("createSession", () => {
+    let apiSpy;
+    beforeEach(() => {
+      apiSpy = vi.spyOn(api, "createSession").mockImplementation(vi.fn());
+    });
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
     it("should create a session successfully", async () => {
-      const mockSession = {
+      const mockSession: Session = {
         id: "1",
         name: "Test Session",
         description: "Test Description",
@@ -15,8 +24,7 @@ describe("SessionStore", () => {
         currentStory: null,
         participants: [],
       };
-      api.createSession.mockResolvedValue(mockSession);
-
+      apiSpy.mockResolvedValueOnce(mockSession);
       const store = new SessionStore();
       await store.createSession("Test Session", "Test Description");
 
@@ -26,7 +34,7 @@ describe("SessionStore", () => {
 
     it("should handle errors when creating a session", async () => {
       const errorMessage = "Failed to create session";
-      api.createSession.mockRejectedValue(new Error(errorMessage));
+      apiSpy.mockRejectedValue(new Error(errorMessage));
 
       const store = new SessionStore();
 
