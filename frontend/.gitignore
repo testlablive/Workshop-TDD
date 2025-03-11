@@ -25,4 +25,10 @@ dist-ssr
 *.vite/*
 
 # tests
-*.report/*
+/report
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

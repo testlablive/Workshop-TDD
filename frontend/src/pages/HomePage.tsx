@@ -21,7 +21,7 @@ import {
 } from "@fluentui/react-components";
 import { getSessions } from "../api/apiClient";
 import { Session } from "../types";
-import { sessionStoreContext, StoreState } from "../context/SessionStore";
+import { sessionStoreContext, StoreState } from "../store/SessionStore";
 
 const useStyles = makeStyles({
   container: {

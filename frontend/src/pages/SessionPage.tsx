@@ -23,7 +23,7 @@ import { VotingResults } from "../components/VotingResults";
 import { CreateStoryForm } from "../components/CreateStoryForm";
 import { getStories } from "../api/apiClient";
 import { Story } from "../types";
-import { sessionStoreContext, StoreState } from "../context/SessionStore";
+import { sessionStoreContext, StoreState } from "../store/SessionStore";
 
 const useStyles = makeStyles({
   container: {
