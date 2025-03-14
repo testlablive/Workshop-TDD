@@ -1,7 +1,8 @@
 import { PlanningCard } from "../../src/components/PlanningCard";
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+import { expect, fn, userEvent, within } from "@storybook/test";
 
+let selected = false;
 const meta = {
   title: "components/PlanningCard",
   component: PlanningCard,
@@ -9,12 +10,22 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-  args: { onClick: fn(), selected: false, value: "1" },
+  args: { onClick: fn(), selected: selected, value: "1" },
 } satisfies Meta<typeof PlanningCard>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
-  args: {},
+  args: {
+    onClick: fn(() => {
+      selected = true;
+    }),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const card = canvas.getByTestId("planning-card");
+    await userEvent.click(card);
+    expect(selected).toBe(true);
+  },
 };
