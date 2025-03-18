@@ -41,4 +41,16 @@ public class SessionTests : BaseTests
         var retrievedSession = await addResponse.Content.ReadFromJsonAsync<SessionResponse>();
         Assert.NotEqual(Guid.Empty, retrievedSession!.Id);
     }
+
+    [Fact]
+    public async Task StartSession_WithValidRequest_ReturnsLocationToSession()
+    {
+        var anyValidSession = GetAnyValidSession();
+
+        var addResponse = await _api.PostAsJsonAsync("session", anyValidSession);
+
+        var retrievedSession = await addResponse.Content.ReadFromJsonAsync<SessionResponse>();
+        var retrievedLocation = addResponse.Headers.Location;
+        Assert.Equal($"session/{retrievedSession!.Id}", retrievedLocation!.ToString());
+    }
 }
