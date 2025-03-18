@@ -9,7 +9,7 @@ public class SessionController : ControllerBase
     [HttpPost]
     public ActionResult StartSession()
     {
-        return Created("", null);
+        return Created("", new { Id = Guid.NewGuid() } );
     }
 }
 
