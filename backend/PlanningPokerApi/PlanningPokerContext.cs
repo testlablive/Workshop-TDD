@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PlanningPokerApi.Sessions;
 
 namespace PlanningPokerApi
 {

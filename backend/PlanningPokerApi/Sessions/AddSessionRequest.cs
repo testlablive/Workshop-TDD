@@ -1,4 +1,4 @@
-﻿namespace PlanningPokerApi
+﻿namespace PlanningPokerApi.Sessions
 {
     public class AddSessionRequest
     {

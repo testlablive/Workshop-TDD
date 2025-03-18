@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PlanningPokerApi;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using PlanningPokerApi.Sessions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<PlanningPokerContext>(opt => opt.UseSqlite("Data Source = " +
           Path.Combine(Directory.GetCurrentDirectory(), "planningpoker.sqlite")));
+builder.Services.AddScoped<ISessionRepository, SessionRepository>();
 
 var app = builder.Build();
 
