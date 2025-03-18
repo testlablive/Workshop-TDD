@@ -71,8 +71,18 @@ public class SessionTests : BaseTests
     {
         var session = await CreateAnyValidSession(_api);
 
-        var retrievedSession = await _api.GetFromJsonAsync<Session>($"session/{session.Id}");
+        var retrievedSession = await _api.GetFromJsonAsync<SessionResponse>($"session/{session.Id}");
 
         Assert.Equal(session.Id, retrievedSession!.Id);
+    }
+
+    [Fact]
+    public async Task GetSession_WithNonexistingId_ReturnsNotFound()
+    {
+        var randomId = Guid.NewGuid();
+
+        var getResponse = await _api.GetAsync($"session/{randomId}");
+
+        Assert.Equal(System.Net.HttpStatusCode.NotFound, getResponse.StatusCode);
     }
 }

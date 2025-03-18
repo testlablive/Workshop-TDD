@@ -6,12 +6,12 @@
         public string Title { get; private set; }
         public string Description { get; private set; }
 
-        public static Session StartSession()
+        public static Session StartSession(AddSessionRequest request)
         {
             return new Session {
                 Id = Guid.NewGuid(),
-                Title = "Any valid planning session",
-                Description = "Planning Poker for any valid planning session"
+                Title = request.Title,
+                Description = request.Description
             };
         }
     }

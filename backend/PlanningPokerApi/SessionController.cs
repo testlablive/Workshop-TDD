@@ -6,12 +6,29 @@ namespace PlanningPokerApi;
 [Route("[controller]")]
 public class SessionController : ControllerBase
 {
-    [HttpPost]
-    public ActionResult StartSession()
+    private readonly PlanningPokerContext _context;
+
+    public SessionController(PlanningPokerContext context)
     {
-        var session = Session.StartSession();
+        _context = context;
+    }
+
+    [HttpPost()]
+    public async Task<ActionResult> StartSession([FromBody] AddSessionRequest request)
+    {
+        var session = Session.StartSession(request);
+        _context.Sessions.Add(session);
+        await _context.SaveChangesAsync();
 
         return Created($"session/{session.Id}", session);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult> GetSession([FromRoute] Guid id)
+    {
+        var session = await _context.Sessions.FindAsync(id);
+
+        return (session == null) ? NotFound() : Ok(session);
     }
 }
 
