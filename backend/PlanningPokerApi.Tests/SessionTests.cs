@@ -3,18 +3,30 @@ using System.Net.Http.Json;
 
 namespace PlanningPokerApi.Tests;
 
-public class SessionTests
+public class SessionTests : BaseTests
 {
+    internal WebApplicationFactory<Program> _webApp;
+    internal HttpClient _api;
+
+    public SessionTests()
+    {
+        if (_webApp == null)
+        {
+            _webApp = new WebApplicationFactory<Program>();
+        }
+
+        if (_api == null)
+        {
+            _api = _webApp.CreateClient();
+        }
+    }
+
     [Fact]
     public async Task StartSession_WithValidRequest_ReturnsCreated()
     {
-        var webapp = new WebApplicationFactory<Program>();
-        var client = webapp.CreateClient();
-        var addResponse = await client.PostAsJsonAsync("session", new
-        {
-            title = "Any valid planning session",
-            description = "Planning Poker for any valid planning session"
-        });
+        var anyValidSession = GetAnyValidSession();
+
+        var addResponse = await _api.PostAsJsonAsync("session", anyValidSession);
 
         Assert.Equal(System.Net.HttpStatusCode.Created, addResponse.StatusCode);
     }
@@ -22,15 +34,11 @@ public class SessionTests
     [Fact]
     public async Task StartSession_WithValidRequest_ReturnsValidId()
     {
-        var webapp = new WebApplicationFactory<Program>();
-        var client = webapp.CreateClient();
-        var addResponse = await client.PostAsJsonAsync("session", new
-        {
-            title = "Any valid planning session",
-            description = "Planning Poker for any valid planning session"
-        });
-        var retrievedSession = await addResponse.Content.ReadFromJsonAsync<SessionResponse>();
+        var anyValidSession = GetAnyValidSession();
 
-        Assert.NotEqual(Guid.Empty, retrievedSession.Id);
+        var addResponse = await _api.PostAsJsonAsync("session", anyValidSession);
+
+        var retrievedSession = await addResponse.Content.ReadFromJsonAsync<SessionResponse>();
+        Assert.NotEqual(Guid.Empty, retrievedSession!.Id);
     }
 }
