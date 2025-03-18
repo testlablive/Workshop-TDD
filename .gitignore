@@ -374,3 +374,4 @@ FodyWeavers.xsd
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+/backend/PlanningPokerApi.lutconfig
