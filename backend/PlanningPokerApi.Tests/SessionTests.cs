@@ -65,4 +65,14 @@ public class SessionTests : BaseTests
         Assert.Equal(anyValidSession.Title, retrievedSession!.Title);
         Assert.Equal(anyValidSession.Description, retrievedSession!.Description);
     }
+
+    [Fact]
+    public async Task StartSession_WithValidRequest_CanBeRetrievedById()
+    {
+        var session = await CreateAnyValidSession(_api);
+
+        var retrievedSession = await _api.GetFromJsonAsync<Session>($"session/{session.Id}");
+
+        Assert.Equal(session.Id, retrievedSession!.Id);
+    }
 }

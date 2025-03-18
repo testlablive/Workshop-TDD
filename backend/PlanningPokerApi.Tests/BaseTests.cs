@@ -20,5 +20,12 @@ namespace PlanningPokerApi.Tests
 
             return anyValidSession;
         }
+
+        public static async Task<Session> CreateAnyValidSession(HttpClient api)
+        {
+            var addSessionResponse = await api.PostAsJsonAsync("session", GetAnyValidSession());
+
+            return await addSessionResponse.Content.ReadFromJsonAsync<Session>();
+        }
     }
 }
